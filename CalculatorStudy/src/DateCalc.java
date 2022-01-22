@@ -17,11 +17,11 @@ import java.time.temporal.ChronoUnit;
 
 public class DateCalc extends Calculator{
 	
-	static int getyear=0;
-	static int getmonth=0;
-	static int getdays=0;
-	static int week=0;
-	static long getalldays=0;
+	static int getyear=0;//추가or빼서 얻어올 연도
+	static int getmonth=0;//추가or빼서 얻어올 월
+	static int getdays=0;//추가or빼서 얻어올 일
+	static int week=0;//getdays가 7이상이면 1주로 바꾸기
+	static long getalldays=0;//총 며칠인지 계산하기
 	static String getd ; //얻어올 요일
 	
 	
@@ -39,14 +39,13 @@ public class DateCalc extends Calculator{
 	       
 			Period period = Period.between(toDateTime, fromDateTime);
 			
-			
+			//-1년이면 1년이라고 떠야하니까 음수면 양수로 바꾸기
 			getyear=period.getYears();	getyear=getyear<0?-getyear:getyear;
 			getmonth=period.getMonths();	getmonth=getmonth<0?-getmonth:getmonth;
 			getdays=period.getDays();	getdays=getdays<0?-getdays:getdays;
 			 getalldays=ChronoUnit.DAYS.between(toDateTime, fromDateTime);
 		
 			 //실제 계산기에서 0이면 안나와서
-			
 			System.out.print(toDateTime+"와 "+fromDateTime+"의 차이 : ");
 			if(getyear!=0)
 				System.out.print(getyear+"년, ");

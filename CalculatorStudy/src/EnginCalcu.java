@@ -1,7 +1,7 @@
 import java.math.*;
 public class EnginCalcu extends Calc{
 	
-	//ÆåÅä¸®¾óÀÌ ¼Ò¼öµµ °¡´ÉÇÑµ¥ ÀÌ°É ¾î¶»°Ô..?
+	//ì‹¤ìˆ˜ ì–´ë–»ê²Œ??
 		double factorial(double input) {
 			int output;
 			if(input==1) {
@@ -12,30 +12,30 @@ public class EnginCalcu extends Calc{
 			}
 		}
 		
-		//°ıÈ£ ???
+		//ê´„í˜¸???
 		
-		//ÆÄÀÌ(¤Ğ)
+		//íŒŒì´(3.14)
 		void pi() {
 			System.out.print(Math.PI);
 		}
 		
-		//ÀÚ¿¬·Î±× e
+		//e
 		void e() {
 			System.out.print(Math.E);
 		}
 		
-		//ln(¹ØÀÌ eÀÎ log)
+		//ln(logë°‘ì´ e)
 		double ln(double input) {
 			if(input<=0) {
-				System.out.print("ÀÔ·ÂÀÌ Àß¸øµÇ¾ú½À´Ï´Ù.");
+				System.out.print("ì…ë ¥ì´ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤.");
 			}
 			return Math.log(input);
 		}
 		
-		//log(¹ØÀÌ 10ÀÎ log)
+		//log(ë°‘ì´ 10ì¸ log)
 		double log10(double input) {
 			if(input<=0) {
-				System.out.print("ÀÔ·ÂÀÌ Àß¸øµÇ¾ú½À´Ï´Ù.");
+				System.out.print("ì…ë ¥ì´ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤.");
 			}
 			return Math.log10(input);
 		}
@@ -43,7 +43,7 @@ public class EnginCalcu extends Calc{
 		//10^x
 		void tenexpo(double input){  
 			if(input<0) {
-				System.out.print("ÀÔ·ÂÀÌ Àß¸øµÇ¾ú½À´Ï´Ù.");
+				System.out.print("ì…ë ¥ì´ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤.");
 			}
 			else {
 				double result=Math.pow(10, input);
@@ -57,9 +57,9 @@ public class EnginCalcu extends Calc{
 			System.out.print(result);
 		}
 		
-		//»ï°¢ÇÔ¼öµé switch¹®À¸·Î..?, deg or rad´Â »ï°¢ÇÔ¼ö ¹öÆ° ´©¸£±â Àü¿¡ ´©¸¦ ¼ö ÀÖÀ¸´Ï µû·Î ±¸Çö
-		/*toRadians() : °¢µµ -> ¶óµğ¾È : double b = Math.toRadians(a);
-		toDegrees() : ¶óµğ¾È -> °¢µµ : double a = Math.toDegrees(b);*/
+		//
+		/*toRadians() : ê°ë„ -> ë¼ë””ì•ˆ : double b = Math.toRadians(a);
+		toDegrees() : ë¼ë””ì•ˆ -> ê°ë„ : double a = Math.toDegrees(b);*/
 		void trifunc(int selec,double inputx) {
 			double result;
 			switch(selec) {

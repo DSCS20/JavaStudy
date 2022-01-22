@@ -5,15 +5,15 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.DayOfWeek;
 import java.time.format.TextStyle;
-import java.util.Locale; // ¿äÀÏÀ» ÇÑ±¹¾î·Î ±¸ÇÒ²¨
+import java.util.Locale; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ±ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò²ï¿½
 import java.time.temporal.ChronoUnit;
 
-//https://sunghs.tistory.com/128 Âü°í
-//https://joswlv.github.io/2019/07/21/java8_date_function/ Âü°í
-//https://hianna.tistory.com/610 Âü°í
+//https://sunghs.tistory.com/128 ï¿½ï¿½ï¿½ï¿½
+//https://joswlv.github.io/2019/07/21/java8_date_function/ ï¿½ï¿½ï¿½ï¿½
+//https://hianna.tistory.com/610 ï¿½ï¿½ï¿½ï¿½
 
-//Java ½Ã°£ API ½Ã´ë Èå¸§¼ø : java.util.Date > java.util.Calendar > java.time
-// »õ·Î¿î API ÀåÁ¡ : Calendar,Date¸¦ È¥¿ëÇØ¼­ »ç¿ëX => Àß¸ø ÁöÁ¤ÇÏ°Å³ª È¥µ¿ X
+//java.util.Date > java.util.Calendar > java.time
+
 
 public class DateCalc extends Calculator{
 	
@@ -22,15 +22,15 @@ public class DateCalc extends Calculator{
 	static int getdays=0;
 	static int week=0;
 	static long getalldays=0;
-	static String getd; //¾ò¾î¿Ã ¿äÀÏ
+	static String getd ; //ì–»ì–´ì˜¬ ìš”ì¼
 	
 	
 	DateCalc(){};
 
-	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy³âMM¿ùddÀÏ");
+	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyë…„MMì›”ddì¼");
 	
 	
-	//³¯Â¥ Â÷ÀÌ ±¸ÇÏ´Â ÇÔ¼ö FromToDate(String,String) »ı¼º
+	// FromToDate(String,String) 
 	public static void FromToDate(String todate,String fromdate) {
 		try {
 			
@@ -39,79 +39,71 @@ public class DateCalc extends Calculator{
 	       
 			Period period = Period.between(toDateTime, fromDateTime);
 			
-			/*Java8 date°ü·Ã ÇÔ¼ö 
-			** ±â°£ (TemporalAmount)**
-			Period : µÎ ³¯Â¥ »çÀÌÀÇ [³â,¿ù,ÀÏ]·Î Ç¥ÇöµÇ´Â ±â°£ 
-			(½Ã°£À» ´Ù·çÁö ¾Ê´Ù º¸´Ï LocalDate¸¦ »ç¿ëÇÑ´Ù)
-
-			Duration : µÎ ½Ã°£ »çÀÌÀÇ [ÀÏ,½Ã,ºĞ,ÃÊ]·Î Ç¥ÇöµÇ´Â ±â°£ 
-			(Instant Å¬·¡½º¸¦ »ç¿ëÇÏ°í, seconds¿Í nanoseconds·Î ÃøÁ¤ µÇÁö¸¸ 
-			[ÀÏ,½Ã,ºĞ,ÃÊ]·Î º¯È¯ÇØ ÁÖ´Â ¸Ş¼­µå¸¦ Á¦°ø)
-			 */			
 			
 			getyear=period.getYears();	getyear=getyear<0?-getyear:getyear;
 			getmonth=period.getMonths();	getmonth=getmonth<0?-getmonth:getmonth;
 			getdays=period.getDays();	getdays=getdays<0?-getdays:getdays;
 			 getalldays=ChronoUnit.DAYS.between(toDateTime, fromDateTime);
-			//½ÇÁ¦ °è»ê±â¿¡¼­ 0ÀÌ¸é ¾È ³ª¿È
+		
+			 //ì‹¤ì œ ê³„ì‚°ê¸°ì—ì„œ 0ì´ë©´ ì•ˆë‚˜ì™€ì„œ
 			
-			System.out.print(toDateTime+"°ú "+fromDateTime+"ÀÇ Â÷ÀÌ : ");
+			System.out.print(toDateTime+"ì™€ "+fromDateTime+"ì˜ ì°¨ì´ : ");
 			if(getyear!=0)
-				System.out.print(getyear+"³â, ");
+				System.out.print(getyear+"ë…„, ");
 			if(getmonth!=0)
-				System.out.print(getmonth+"¿ù, ");
+				System.out.print(getmonth+"ì›”, ");
 			if(getdays!=0) {
 				if(getdays>=7) {
 					week=getdays/7;
 					getdays-=week*7;
-					System.out.print(week+"ÁÖ, ");
+					System.out.print(week+"ì£¼, ");
 				}
-				System.out.print(getdays+"ÀÏ ");
+				System.out.print(getdays+"ì¼ ");
 			}
-			 System.out.println("(ÃÑ "+ getalldays+"ÀÏ)");
+			 System.out.println("(ì´ "+ getalldays+"ì¼)");
 			
 		}catch (Exception e) {
-			System.out.println("¿Ã¹Ù¸¥ °ªÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä ¿¹½Ã) 2021³â01¿ù01ÀÏ" );
+			System.out.println("ì˜¬ë°”ë¥¸ ê°’ì„ ì…ë ¥í•´ì£¼ì„¸ìš” ex)2001ë…„01ì›”01ì¼" );
 		}
 	}
 
 	
 	
-	//00³â 00¿ù 00ÀÏ (Ãß°¡/»©±â)
+
 	public static void AddDate(String date,long year,long month,long day) {
 		try {
 		
 			LocalDate DateTime = LocalDate.parse(date, formatter);
 
-			System.out.print(date+"¿¡ "+year+"³â "+month+"¿ù "+day+"ÀÏ ");
+			System.out.print(date+"ì— "+year+"ë…„ "+month+"ì›” "+day+"ì¼ ");
 			
-			//if Ãß°¡ ¹öÆ°À» ´©¸£¸é
+			//if ì¶”ê°€í•˜ë©´
 			DateTime=DateTime.plusYears(year); 
 			DateTime=DateTime.plusMonths(month);
 			DateTime=DateTime.plusDays(day);  
 			
-			System.out.print("Ãß°¡ : "+DateTime); //°íÄ¥°Í-¿äÀÏµµ ³ª¿À°Ô ÇØ¾ßÇÔ
+			System.out.print("ì¶”ê°€ : "+DateTime); 
 			
-			// DayOfWeek °´Ã¼ ±¸ÇÏ±â
+			// DayOfWeek ê°ì²´ ìƒì„±
 			DayOfWeek dayOfWeek =DateTime.getDayOfWeek();
-			//TextStyle.FullÀº ¿äÀÏÀÇ ÀüÃ¼ ÅØ½ºÆ® ex) Åä¿äÀÏ o Åä x
+			//TextStyle.Full ì „ì²´ ê¸¸ì´ ê°€ì ¸ì˜¤ê¸° í† ìš”ì¼ O í†  x
 			getd=dayOfWeek.getDisplayName(TextStyle.FULL, Locale.KOREAN);
 
 			System.out.println(" "+getd);
 			
 			
-			//if »©±â ¹öÆ°À» ´©¸£¸é
+			//if ë¹¼ê¸°ë²„íŠ¼ ëˆ„ë¥´ë©´
            /*
               DateTime=DateTime.minusYears(year);
 			  DateTime=DateTime.minusMonths(month);
 			  DateTime=DateTime.minusDays(day);
 			
-			  System.out.println("»©±â : "+DateTime);
+			  System.out.println("ë¹¼ê¸° : "+DateTime);
             */
 			
 		
 		}catch(Exception e) {
-			System.out.println("¿Ã¹Ù¸¥ °ªÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä");
+			System.out.println("ì˜¬ë°”ë¥¸ ê°’ì„ ì…ë ¥í•˜ì‹œì˜¤");
 		}
 		
 	}
@@ -119,7 +111,7 @@ public class DateCalc extends Calculator{
 	
 	public static void main(String[] args) {
 		
-		System.out.println("ºñ±³ÇÒ ³¯Â¥ 2°³¸¦ ÀÔ·ÂÇÏ½Ã¿À ¿¹½Ã) 2021³â01¿ù01ÀÏ" );
+		System.out.println("ë¹„êµí•  ë‚ ì§œ 2ê°œë¥¼ ì…ë ¥í•˜ì‹œì˜¤ ë‚ ì§œ ex) 2021ë…„01ì›”01ì¼" );
 		
 		Scanner sc1 = new Scanner(System.in);
 		String todate=sc1.next();	
@@ -128,7 +120,7 @@ public class DateCalc extends Calculator{
 		 
 		 System.out.println("----------------------------");
 		 
-		 System.out.println("³¯Â¥ 1°³¿Í Ãß°¡ÇÒ ¿¬,¿ù,ÀÏÀ» ÀÔ·ÂÇÏ½Ã¿À" );
+		 System.out.println("ë‚ ì§œì™€ ì¶”ê°€í•  ì—°,ì›”,ì¼ì„ ì…ë ¥í•˜ì‹œì˜¤" );
 		 
 	     String date=sc1.next();
 		 long year=sc1.nextLong();	

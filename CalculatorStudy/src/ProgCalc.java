@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+//한글확인
 public class ProgCalc extends Calc{
 
 	public static void main(String[] args) {

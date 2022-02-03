@@ -20,24 +20,24 @@ public class GUI_stan extends JFrame {
 		gbc.fill = GridBagConstraints.BOTH;
 		
 		mainPanel mp = new mainPanel();
-		addPanel(mp, 0, 0, 4, 2);
+		addPanel(mp, 0, 0, 4, 2, 1, 0.1);
 	
 		
 		ButtonPanel bp = new ButtonPanel();
-		addPanel(bp, 0, 2, 4, 6);
+		addPanel(bp, 0, 2, 4, 6, 1, 2);
 		
-		setSize(400, 500);
+		setSize(400, 600);
 		setVisible(true);
 		
 	}
 	
-	public void addPanel(Component com, int x, int y, int width, int height) {
+	public void addPanel(Component com, int x, int y, int width, int height, double weightx, double weighty) {
 		gbc.gridx = x;
 		gbc.gridy = y;
 		gbc.gridwidth = width;
 		gbc.gridheight = height;
-		gbc.weightx = 1;
-		gbc.weighty = 1;
+		gbc.weightx = weightx;
+		gbc.weighty = weighty;
 		
 		add(com, gbc);
 	}
@@ -63,11 +63,12 @@ class mainPanel extends JPanel {
 		cur = new JLabel("0");
 		
 		Font font1 = new Font("고딕", Font.PLAIN, 20);
-		Font font2 = new Font("고딕", Font.PLAIN, 40);
+		Font font2 = new Font("고딕", Font.PLAIN, 80);
 		
 		log.setFont(font1);
 		log.setHorizontalAlignment(SwingConstants.RIGHT);
 		log.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
+		
 		
 		cur.setFont(font2);
 		cur.setHorizontalAlignment(SwingConstants.RIGHT);

@@ -4,7 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
-//한글확인
+//한글확인//다시
 public class ProgCalc extends Calc{
 	String button="";
 	String sign="";

@@ -1,14 +1,3 @@
-import java.util.Scanner;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JRadioButton;
-import javax.swing.JSpinner;
-
-
-import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +5,6 @@ import java.time.DayOfWeek;
 import java.time.format.TextStyle;
 import java.util.Locale; 
 import java.time.temporal.ChronoUnit;
-import java.awt.*;
 
 
 
@@ -53,16 +41,14 @@ public class DateCalc extends Calculator implements Dnum{
 	static int eyear=1;
 	static int emonth=1;
 	static int eday=1;
-			
-			//계산해서 알려줄 날짜의 연 월 일
-	//static int year=0;
-	//static int month=0;
-	//static int day=0;
-			
+		
+	static int year=0;
+	static int month=0;
+	static int day=0;
 	
 	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년MM월dd일");
-	static LocalDate d;
-	
+	static LocalDate toDateTime=LocalDate.now();
+	static LocalDate fromDateTime=LocalDate.now();
 
 	public static void FromToDate(LocalDate toDateTime, LocalDate fromDateTime) {
 		
@@ -113,10 +99,6 @@ public class DateCalc extends Calculator implements Dnum{
 		getd=dayOfWeek.getDisplayName(TextStyle.FULL, Locale.KOREAN); //TextStyle.Full 전체 길이 가져오기 토요일 O 토 x
 	}
 	
-	//연 월 일 정수를 입력받아서 LocalDate로 만듦
-	 static void makelocaldate(int ye,int mo,int da){
-		 d=LocalDate.of( ye,mo,da );
-		 }
 	
 	public static void main(String[] args) {
 	

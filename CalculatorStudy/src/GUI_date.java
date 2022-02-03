@@ -7,14 +7,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 
 public class GUI_date extends DateCalc {
-
+			
 	public static void main(String[] args) {
+
+		
 		JFrame f=new JFrame("날짜 계산기");
 		
 		Panel p=new Panel();
@@ -86,13 +89,39 @@ public class GUI_date extends DateCalc {
 		p.add(yearCombo).setBounds(80,78,60,30); yearCombo.setModel(yearModel); 
 		yearCombo.setSelectedItem(syear); p.add(yLbl).setBounds(142,78,60,30); 
 		
+		
 		p.add(monthCombo).setBounds(162,78,60,30); monthCombo.setModel(monthModel); 
 		monthCombo.setSelectedItem(smonth); p.add(mLbl).setBounds(224,78,60,30); 
 		
+
 		p.add(dayCombo).setBounds(244,78,60,30); dayCombo.setModel(dayModel); 
 		dayCombo.setSelectedItem(sday); p.add(dLbl).setBounds(306,78,60,30); 
 		
+		yearCombo.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				int y= (int) e.getItem();
+				toDateTime=toDateTime.withYear(y);
+			}
+		});
 		
+		monthCombo.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				int m= (int) e.getItem();
+				toDateTime=toDateTime.withMonth(m);
+			}
+		});
+
+		
+		dayCombo.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				int d= (int) e.getItem();
+				toDateTime=toDateTime.withDayOfMonth(d);
+			}
+		});
+
+
+		
+		System.out.println(toDateTime);
 		JLabel l2=new JLabel("종료일");
 		p.add(l2).setBounds(20,124,40,20);
 		
@@ -102,17 +131,70 @@ public class GUI_date extends DateCalc {
 		p.add(EmonthCombo).setBounds(162,120,60,30); EmonthCombo.setModel(EmonthModel); 
 		EmonthCombo.setSelectedItem(emonth); p.add(EmLbl).setBounds(224,120,60,30); 
 		
+		
 		p.add(EdayCombo).setBounds(244,120,60,30); EdayCombo.setModel(EdayModel); 
 		EdayCombo.setSelectedItem(eday); p.add(EdLbl).setBounds(306,120,60,30); 
 		
-		JLabel l3=new JLabel("차이");
-		p.add(l3).setBounds(20,166,40,20);
+	
+		EyearCombo.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				int y= (int) e.getItem();
+				fromDateTime=fromDateTime.withYear(y);
+			}
+		});
 		
-		//나중에 다시 - 이벤트 처리해야 - 걍 위치만 
-		//FromtoDate 함수 사용하면 getyear getmonth getdays 바뀜
-		JLabel get1=new JLabel(getyear+"년 "+getmonth+"월 "+getdays+"일");
-		p.add(get1).setBounds(80,166,100,20);
-		//
+		EmonthCombo.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				int m= (int) e.getItem();
+				fromDateTime=fromDateTime.withMonth(m);
+			}
+		});
+
+		
+		EdayCombo.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				int d= (int) e.getItem();
+				fromDateTime=fromDateTime.withDayOfMonth(d);
+			}
+		});
+		
+		JLabel get1=new JLabel("동일한 날짜");
+		p.add(get1).setBounds(80,173,100,20);
+		
+		
+		//JLabel l3=new JLabel("차이");
+		JButton dif=new JButton("차이");
+		p.add(dif).setBounds(10,166,60,30);	
+	
+		dif.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				DateCalc.FromToDate(toDateTime,fromDateTime);
+				get1.setText(getyear+"년 "+getmonth+"월 "+week+"주 "+getdays+"일");
+				
+				/*
+				 if(getyear!=0)
+				System.out.print(getyear+"년, "); //print가 아니라 라벨로 바꿔서 해야함 나중에 이벤트 처리..?
+			if(getmonth!=0)
+				System.out.print(getmonth+"월, ");
+			if(getdays!=0) {
+				if(getdays>=7) {
+					week=getdays/7;
+					getdays-=week*7;
+					System.out.print(week+"주, ");
+				}
+				System.out.print(getdays+"일 ");
+			}
+			 System.out.println("(총 "+ getalldays+"일)");
+				 */
+				
+			}
+		});
+		
+		
+		
+		
+		
 		
 		f.add(p);
 		
@@ -176,7 +258,7 @@ public class GUI_date extends DateCalc {
 
 		p2.add(yearCombo3).setBounds(20,182,45,20); yearCombo3.setModel(yearModel3); 
 		yearCombo3.setSelectedItem(ay);
-		ay=(int) yearCombo3.getSelectedItem(); //	addyear Dnum으로?
+		ay=(int) yearCombo3.getSelectedItem(); //	addyear 
 		
 	
 		p2.add(monthCombo3).setBounds(80,182,45,20); monthCombo3.setModel(monthModel3); 
@@ -190,6 +272,7 @@ public class GUI_date extends DateCalc {
 		
 		JRadioButton radio[]=new JRadioButton[2];
 		
+		//이벤트처리 나중에
 		class MyItemListener implements ItemListener{
 	        @Override
 	        public void itemStateChanged(ItemEvent e) {

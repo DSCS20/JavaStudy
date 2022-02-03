@@ -14,7 +14,7 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.DayOfWeek;
 import java.time.format.TextStyle;
-import java.util.Locale; // ������ �ѱ���� ���Ҳ�
+import java.util.Locale; 
 import java.time.temporal.ChronoUnit;
 import java.awt.*;
 
@@ -55,9 +55,9 @@ public class DateCalc extends Calculator implements Dnum{
 	static int eday=1;
 			
 			//계산해서 알려줄 날짜의 연 월 일
-	static int year=0;
-	static int month=0;
-	static int day=0;
+	//static int year=0;
+	//static int month=0;
+	//static int day=0;
 			
 	
 	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년MM월dd일");
@@ -74,7 +74,7 @@ public class DateCalc extends Calculator implements Dnum{
 			getdays=period.getDays();	getdays=getdays<0?-getdays:getdays;
 			getalldays=ChronoUnit.DAYS.between(toDateTime, fromDateTime);
 		
-			 //실제 계산기에서 0이면 안나와서
+			 //실제 계산기에서 0이면 안나와서 //gui 이벤트쪽으로 옮기기해야할듯..?
 			System.out.print(toDateTime+"와 "+fromDateTime+"의 차이 : ");
 			if(getyear!=0)
 				System.out.print(getyear+"년, "); //print가 아니라 라벨로 바꿔서 해야함 나중에 이벤트 처리..?

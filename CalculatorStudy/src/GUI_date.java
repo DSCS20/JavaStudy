@@ -1,4 +1,3 @@
-import java.awt.Label;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,14 +11,11 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
-import javax.swing.JSpinner;
 
 public class GUI_date extends DateCalc {
 
 	public static void main(String[] args) {
 		JFrame f=new JFrame("날짜 계산기");
-		
-		//JSpinner s=new JSpinner();
 		
 		Panel p=new Panel();
 		Panel p2=new Panel();

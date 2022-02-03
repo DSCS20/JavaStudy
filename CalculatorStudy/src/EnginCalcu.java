@@ -1,7 +1,7 @@
 import java.math.*;
 public class EnginCalcu extends Calc{
 	
-	//실수 어떻게??
+	//펙토리얼, 실수 어떻게??
 		double factorial(double input) {
 			int output;
 			if(input==1) {
@@ -25,19 +25,19 @@ public class EnginCalcu extends Calc{
 		}
 		
 		//ln(log밑이 e)
-		double ln(double input) {
+		void ln(double input) {
 			if(input<=0) {
 				System.out.print("입력이 잘못되었습니다.");
 			}
-			return Math.log(input);
+			System.out.print(Math.log(input));
 		}
 		
 		//log(밑이 10인 log)
-		double log10(double input) {
+		void log10(double input) {
 			if(input<=0) {
 				System.out.print("입력이 잘못되었습니다.");
 			}
-			return Math.log10(input);
+			System.out.print(Math.log10(input));
 		}
 		
 		//10^x
@@ -51,10 +51,10 @@ public class EnginCalcu extends Calc{
 			}
 		}
 		
-		//x^y
-		void xexpoy(double inputx,double inputy) {
+		//x^y 
+		double xexpoy(double inputx,double inputy) {
 			double result=Math.pow(inputx, inputy);
-			System.out.print(result);
+			return result;
 		}
 		
 		//

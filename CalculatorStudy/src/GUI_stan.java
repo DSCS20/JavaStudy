@@ -68,6 +68,7 @@ class mainPanel extends JPanel {
 		log.setFont(font1);
 		log.setHorizontalAlignment(SwingConstants.RIGHT);
 		log.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
+		log.setBounds(0, 0, 400, 100);
 		
 		
 		cur.setFont(font2);

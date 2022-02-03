@@ -4,8 +4,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
-public class GUI_seyeon {
-	public ProgCalc() {
+public class GUI_seyeon extends JFrame {
+	public GUI_seyeon() {
 		setTitle("프로그래머 계산기");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -22,7 +22,7 @@ public class GUI_seyeon {
 		setSize(500,600);
 		setVisible(true);
 	}
-	
+
 	class NorthPanel extends JPanel{
 		public NorthPanel() {
 			

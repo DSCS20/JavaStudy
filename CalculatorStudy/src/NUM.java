@@ -37,4 +37,12 @@ public class NUM {
 			return this.IorD = false;
 		}
 	}
+	
+	public String toString() {
+		if (isInt()) {
+			return String.format("%d", i_num);
+		} else {
+			return String.format("%lf", d_num);
+		}
+	}
 }

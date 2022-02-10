@@ -1,128 +1,193 @@
 import java.math.*;
+import java.util.*;
+import java.util.Stack;
+
 public class EnginCalcu extends Calc{
 	
-	double result=0;
+	NUM cur = new NUM();
 	
-	//펙토리얼, 실수 어떻게??
-		double factorial(double input) {
-			int output;
-			if(input==1) {
-				return 1;
+	//펙토리얼, 재귀함수 안에 다른 클래스 생성자를 넣은??
+		public double factorial() {
+			if(!cur.isInt()) {
+				System.out.println("정수값을 입력하세요.");
 			}
 			else {
-				return input*factorial(input-1);
+				if(cur.i_num==0) {
+					return 1;
+				}
+				else {
+					return (cur.i_num)*factorial((cur.i_num)-1);
+				}
 			}
 		}
 		
-		//괄호???
-		
+		//괄호: stack사용. https://devheat.tistory.com/3 참고
+		public void bracket(String str) {
+			
+		}
 		
 		//파이(3.14)
-		void pi() {
+		public void pi() {
 			System.out.print(Math.PI);
 		}
 		
 		//e
-		void e() {
+		public void e() {
 			System.out.print(Math.E);
 		}
 		
 		//x^2
-		void xexpo2(double inputx) {
-			result=Math.pow(inputx, 2);
+		public void xexpo2() {
+			if(cur.isInt()) {
+				int tmp=cur.i_num;
+				cur.i_num=(int)Math.pow(cur.i_num, 2);
+				cur.d_num=Math.pow(cur.i_num, 2);
+			}else {
+				double tmp=cur.d_num;
+				cur.i_num=(int)Math.pow(cur.d_num, 2);
+				cur.d_num=Math.pow(cur.d_num, 2);
+			}
 		}
 		//x^3
-		void xexpo3(double inputx) {
-			result=Math.pow(inputx, 3);
+		public void xexpo3() {
+			if(cur.isInt()) {
+				int tmp=cur.i_num;
+				cur.i_num=(int)Math.pow(cur.i_num, 3);
+				cur.d_num=Math.pow(cur.i_num, 3);
+			}else {
+				double tmp=cur.d_num;
+				cur.i_num=(int)Math.pow(cur.d_num, 3);
+				cur.d_num=Math.pow(cur.d_num, 3);
+			}
 		}
 		
 		//2제곱근
-		void tworoot(double inputx) {
-			result=Math.sqrt(inputx);
+		public void tworoot(double inputx) {
+			if(cur.isInt()) {
+				int tmp=cur.i_num;
+				cur.i_num=(int)Math.sqrt(tmp);
+				cur.d_num=Math.sqrt(tmp);
+			}else {
+				double tmp=cur.d_num;
+				cur.i_num=(int)Math.sqrt(tmp);
+				cur.d_num=Math.sqrt(tmp);
+			}
 		}
 		//3제곱근
-		void threeroot(double inputx) {
-			result=Math.cbrt(inputx);
+		public void threeroot(double inputx) {
+			if(cur.isInt()) {
+				int tmp=cur.i_num;
+				cur.i_num=(int)Math.cbrt(tmp);
+				cur.d_num=Math.cbrt(tmp);
+			}else {
+				double tmp=cur.d_num;
+				cur.i_num=(int)Math.cbrt(tmp);
+				cur.d_num=Math.cbrt(tmp);
+			}
 		}
 		
 		//x^y 
-		double xexpoy(double inputx,double inputy) {
-			double result=Math.pow(inputx, inputy);
-			return result;
+		public double xexpoy(NUM y) {
+			double tmp=cur.d_num;
+			cur.d_num=Math.pow(tmp, y.d_num);
+			return cur.d_num;
 		}
 		//x 루트 y
-		double xrooty(double inputx, double inputy) {
-			result=Math.pow(inputx,1.0/inputy);
-			return result;
+		public double xrooty(NUM y) {
+			double tmp=cur.d_num;
+			cur.d_num=Math.pow(y.i_num,tmp);
+			return cur.d_num;
 		}
 		
 		//10^x
-				void tenexpo(double input){  
-					if(input<0) {
-						System.out.print("입력이 잘못되었습니다.");
-					}
-					else {
-						double result=Math.pow(10, input);
-						System.out.print(result);
-					}
-				}
+		public void tenexpo(){  
+			if(cur.isInt()) {
+				int tmp=cur.i_num;
+				cur.i_num=(int)Math.pow(10, tmp);
+				cur.d_num=Math.pow(10, tmp);
+			}
+			else {
+				double tmp=cur.d_num;
+				cur.i_num=(int)Math.pow(10, tmp);
+				cur.d_num=Math.pow(10, tmp);
+			}
+		}
 		//2^x
-		void twoexpox(double inputx) {
-			result=Math.pow(2, inputx);
+		public void twoexpox() {
+			if(cur.isInt()) {
+				int tmp=cur.i_num;
+				cur.i_num=(int)Math.pow(2, tmp);
+				cur.d_num=Math.pow(2, tmp);
+			}
+			else {
+				double tmp=cur.d_num;
+				cur.i_num=(int)Math.pow(2, tmp);
+				cur.d_num=Math.pow(2, tmp);
+			}
 		}
 		
 		//log(밑이 10인 log)
-		void log10(double input) {
-			if(input<=0) {
-				System.out.print("입력이 잘못되었습니다.");
+		public void log10() {
+			double tmp=cur.d_num;
+			if(tmp<=0) {
+				System.out.println("입력이 잘못되었습니다.");
 			}
-			System.out.print(Math.log10(input));
+			else {
+				cur.d_num=Math.log10(tmp);
+				cur.i_num=(int)Math.log10(tmp);
+			}
 		}
 		//logxy(밑이 x)
-		double logxy(double inputx, double inputy) {
-			result=Math.log(inputx) / Math.log(inputy);
-			return result;
+		public double logxy(NUM y) {
+			if(y.d_num<=0) {
+				System.out.println("입력이 잘못되었습니다.");
+			}else {
+				double tmp=cur.d_num;
+				cur.d_num=Math.log(tmp) / Math.log(y.d_num);
+				cur.i_num=(int)cur.d_num;
+				return cur.d_num;
+			}
+			return cur.d_num;
 		}
 		
 				
 		//ln(log밑이 e)
-		void ln(double input) {
-			if(input<=0) {
+		public void ln() {
+			if(cur.d_num<=0) {
 				System.out.print("입력이 잘못되었습니다.");
+			}else {
+				double tmp=cur.d_num;
+				cur.d_num=Math.log(tmp);
+				cur.i_num=(int)Math.log(tmp);
 			}
-			System.out.print(Math.log(input));
 		}
 		//e^x
-		void eexpox(double inputx) {
-			result=Math.pow(Math.E, inputx);
+		public void eexpox() {
+			double tmp=cur.d_num;
+			cur.d_num=Math.pow(Math.E, cur.d_num);
+			cur.i_num=(int)Math.pow(Math.E, cur.d_num);
 		}
 		
 		/*toRadians() : 각도 -> 라디안 : double b = Math.toRadians(a);
 		toDegrees() : 라디안 -> 각도 : double a = Math.toDegrees(b);*/
-		void trifunc(int selec,double inputx) {
-			double result;
+		public void trifunc(int selec) {
+			double tmp=cur.d_num;
 			switch(selec) {
 				case 0:
-					result=Math.sin(inputx);
-					System.out.print(result);
+					cur.d_num=Math.sin(tmp);
 				case 1:
-					result=Math.cos(inputx);
-					System.out.print(result);
+					cur.d_num=Math.cos(tmp);
 				case 2:
-					result=Math.tan(inputx);
-					System.out.print(result);
+					cur.d_num=Math.tan(tmp);
 				case 3:
-					result=Math.sin(inputx);
-					result=Math.pow(result, -1);
-					System.out.print(result);
+					cur.d_num=Math.sin(tmp);
+					cur.d_num=Math.pow(cur.d_num, -1);
 				case 4:
-					result=Math.cos(inputx);
-					result=Math.pow(result, -1);
-					System.out.print(result);
+					cur.d_num=Math.cos(tmp);
+					cur.d_num=Math.pow(cur.d_num, -1);
 				case 5:
-					result=Math.tan(inputx);
-					result=Math.pow(result, -1);
-					System.out.print(result);
+					cur.d_num=Math.tan(tmp);
+					cur.d_num=Math.pow(cur.d_num, -1);
 				}
 			}
 	

@@ -2,8 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class GUI_engin extends JFrame{
 	
@@ -27,6 +26,8 @@ public class GUI_engin extends JFrame{
 		ButtonPanel_engin bpen = new ButtonPanel_engin();
 		addPanel(bpen, 0, 2, 4, 6);
 		
+		
+		
 		pack();
 		setLocation(400,500);
 		setVisible(true);
@@ -44,18 +45,6 @@ public class GUI_engin extends JFrame{
 		
 		add(com, gbc);
 	}
-	
-	/*ActionListener
-	public class enginActionListener implements ActionListener{
-		ButtonPanel_engin bpen = new ButtonPanel_engin();
-		
-		public void actionPerformed(ActionEvent e) {
-		
-			
-			
-		}
-	}*/
-	
 	
 
 	public static void main(String[] args) {
@@ -143,11 +132,19 @@ public class GUI_engin extends JFrame{
 			}
 			add(bt[0]);
 			add(bt[1]);
+			
+			
+		
 	}
-		//https://yooniron.tistory.com/13 이거 보고 참고
-		private class btListener implements ActionListener{
-			public void actionPerformed(ActionEvent e) {
-				JButton b=(JButton)e.getSource();
+		//2nd누르면 바뀌게, 근데 버튼을 어떻게 가져오지..? bt[7]=new JButton("x^3"); 이런식이 되어야 하는데
+		/*public void actionPerformed(ActionEvent e) {
+			ButtonPanel_engin buttonen=
+			
+			
+			JButton b=(JButton)e.getSource();
+			if(b.getText().equals("2nd")) {
+				
 			}
-		}
+		}*/
+		
 	}

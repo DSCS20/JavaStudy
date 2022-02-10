@@ -44,6 +44,7 @@ public class DateCalc extends Calculator implements Dnum{
 	static int year=0;
 	static int month=0;
 	static int day=0;
+	static int lengthOfMon=LocalDate.now().lengthOfMonth();
 	
 	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(" yyyy년 MM월 dd일 ");
 	static LocalDate toDateTime=LocalDate.now();
@@ -94,7 +95,10 @@ public class DateCalc extends Calculator implements Dnum{
 		DayOfWeek dayOfWeek =date.getDayOfWeek();
 		getd=dayOfWeek.getDisplayName(TextStyle.FULL, Locale.KOREAN); //TextStyle.Full 전체 길이 가져오기 토요일 O 토 x
 	}
-	
+	//월별 총 일수 구하기
+	public static void GetDayOfMonth(LocalDate date) {
+		lengthOfMon = date.lengthOfMonth();
+	}
 	
 	public static void main(String[] args) {
 	

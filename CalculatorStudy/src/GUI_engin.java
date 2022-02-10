@@ -14,17 +14,66 @@ public class GUI_engin extends JFrame{
 		super("계산기_공학용");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		JButton[] bt = new JButton[33];
+		setLayout(new GridLayout(7,5,3,3));
+		
+		bt[0]=new JButton("DEG");
+		bt[1]=new JButton("삼각법");
+		JPanel degtri=new JPanel();
+		degtri.add(bt[0]);
+		degtri.add(bt[1]);
+		
+		bt[2]=new JButton("2nd");
+		bt[3]=new JButton("ㅠ");
+		bt[4]=new JButton("e");
+		bt[5]=new JButton("C");
+		//CE버튼 추가하기
+		bt[6]=new JButton("<-");
+		
+		bt[7]=new JButton("x^2");
+		bt[8]=new JButton("(");
+		bt[9]=new JButton(")");
+		bt[10]=new JButton("n!");
+		bt[11]=new JButton("/");
+		
+		bt[12]=new JButton("x root 2");
+		bt[13]=new JButton("7");
+		bt[14]=new JButton("8");
+		bt[15]=new JButton("9");
+		bt[16]=new JButton("*");
+		
+		bt[17]=new JButton("x^y");
+		bt[18]=new JButton("4");
+		bt[19]=new JButton("5");
+		bt[20]=new JButton("6");
+		bt[21]=new JButton("-");
+		
+		bt[22]=new JButton("x root 2");
+		bt[23]=new JButton("1");
+		bt[24]=new JButton("2");
+		bt[25]=new JButton("3");
+		bt[26]=new JButton("+");
+		
+		bt[27]=new JButton("log");
+		bt[28]=new JButton("+/-");
+		bt[29]=new JButton("0");
+		bt[30]=new JButton(".");
+		bt[31]=new JButton("=");
+		
+		bt[32]=new JButton("ln");
+	
+		for (int i=2; i<33; i++) {
+			add(bt[i]);
+		}
+		
 		Container c = getContentPane();
 		c.setLayout(new GridBagLayout());
 		
 		gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.BOTH;
 		
-		mainPanel_engin mpen = new mainPanel_engin();
+		mainPanel_engin mpen = new mainPanel_engin();  //for logs, cur NUM 라벨 배치
 		addPanel(mpen, 0, 0, 4, 2);
-	
-		ButtonPanel_engin bpen = new ButtonPanel_engin();
-		addPanel(bpen, 0, 2, 4, 6);
 		
 		
 		
@@ -82,60 +131,6 @@ public class GUI_engin extends JFrame{
 		}
 	}
 	
-	class ButtonPanel_engin extends JPanel{
-		public ButtonPanel_engin() {
-			JButton[] bt = new JButton[33];
-			setLayout(new GridLayout(7,5,3,3));
-			
-			bt[2]=new JButton("2nd");
-			bt[3]=new JButton("ㅠ");
-			bt[4]=new JButton("e");
-			bt[5]=new JButton("C");
-			bt[6]=new JButton("<-");
-			
-			bt[7]=new JButton("x^2");
-			bt[8]=new JButton("(");
-			bt[9]=new JButton(")");
-			bt[10]=new JButton("n!");
-			bt[11]=new JButton("/");
-			
-			bt[12]=new JButton("x root 2");
-			bt[13]=new JButton("7");
-			bt[14]=new JButton("8");
-			bt[15]=new JButton("9");
-			bt[16]=new JButton("*");
-			
-			bt[17]=new JButton("x^y");
-			bt[18]=new JButton("4");
-			bt[19]=new JButton("5");
-			bt[20]=new JButton("6");
-			bt[21]=new JButton("-");
-			
-			bt[22]=new JButton("x root 2");
-			bt[23]=new JButton("1");
-			bt[24]=new JButton("2");
-			bt[25]=new JButton("3");
-			bt[26]=new JButton("+");
-			
-			bt[27]=new JButton("log");
-			bt[28]=new JButton("+/-");
-			bt[29]=new JButton("0");
-			bt[30]=new JButton(".");
-			bt[31]=new JButton("=");
-			
-			bt[32]=new JButton("ln");
-			bt[0]=new JButton("DEG");
-			bt[1]=new JButton("삼각법");
-		
-			for (int i=2; i<33; i++) {
-				add(bt[i]);
-			}
-			add(bt[0]);
-			add(bt[1]);
-			
-			
-		
-	}
 		//2nd누르면 바뀌게, 근데 버튼을 어떻게 가져오지..? bt[7]=new JButton("x^3"); 이런식이 되어야 하는데
 		/*public void actionPerformed(ActionEvent e) {
 			ButtonPanel_engin buttonen=
@@ -147,4 +142,3 @@ public class GUI_engin extends JFrame{
 			}
 		}*/
 		
-	}

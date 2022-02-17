@@ -10,30 +10,34 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+//import javax.swing.JOptionPane; 경고창 띄우기
 
 import java.time.LocalDate;
 
 
 public class GUI_date extends DateCalc {
-	
-	//31일인 월이었다가 30일인 월로 바뀔때 일을 31로 클릭해놨으면 오류가 남 이거해결해야함
+	 
+	//해야 할 것!!!
+	//31일인 월이었다가 30일인 월로 바뀔때 일을 31로 클릭해놨으면 오류가 남 이거해결해야함 => 함수에 try catch문?
 	//=>월 클릭하는 이벤트에서 바꿔야함??
+	//Exception in thread "AWT-EventQueue-0" java.time.DateTimeException: Invalid date 'FEBRUARY 31' ..날짜 넘기는 거 두 패널 모두 고쳐야 함
 	
-	//월마다 일수가 다르니까 그거에 따라서 바꾸는 함수
+	//다 하고나면 폰트랑 글씨 크기랑 글씨 위치 바꾸기 + 배경색
+
+	
+	//월마다 일수가 다르니까 그거에 따라서 바꾸는 함수 -> 31일인 달 or 30일 or 28일 or 29일
 	public static void ChangeDay(LocalDate date,DefaultComboBoxModel<Integer> model) {
 		int l=lengthOfMon;
 		GetDayOfMonth(date);
 		int ex=lengthOfMon-l;
 		if(ex>0) { //2월이어서 l이 28일이고 현재 선택한 월의 일수가 31일이면 29 30 31을 추가해야함
 			for(int i=0;i<ex;i++) {
-			l++;
-			model.addElement(l);
+				model.addElement(++l);
 			}
 		}
 		else if(ex<0) {
 			for(int i=0;i>ex;i--)
-				model.removeElement(l);
-				l--;
+				model.removeElement(l--);
 		}
 	}
 	//날짜 차이를 알려주는 Label을 바꿔줌 
@@ -93,10 +97,16 @@ public class GUI_date extends DateCalc {
 	}
 	
 	//날짜 더하거나 빼고나서 바뀐 결과 나오게 하는 함수
-	public static void ChangeLabel2() {}
+	public static void ChangeLabel2(JLabel get,JRadioButton radio[]) {
+		if(radio[0].isSelected()){
+            get.setText((AddDate(startDate,ay,am,ad)).format(formatter)+getd);
+        }
+		else {
+			get.setText(MinusDate(startDate,ay,am,ad).format(formatter)+getd);
+		}
+	}
 		
 	public static void main(String[] args) {
-
 		
 		JFrame f=new JFrame("날짜 계산기");
 		
@@ -255,9 +265,9 @@ public class GUI_date extends DateCalc {
 					toDateTime=toDateTime.withDayOfMonth(d);
 					DateCalc.FromToDate(toDateTime,fromDateTime);
 					
-					ChangeDay(toDateTime,dayModel);
-					
 					ChangeLabel(get1, gylb, gmlb,gwlb, gdlb, gadlb);
+					
+					ChangeDay(toDateTime,dayModel);
 				}
 			});
 
@@ -270,7 +280,7 @@ public class GUI_date extends DateCalc {
 				
 					ChangeLabel(get1, gylb, gmlb,gwlb, gdlb, gadlb);
 						
-						ChangeDay(fromDateTime,EdayModel);
+					ChangeDay(fromDateTime,EdayModel);
 						
 				}
 			});
@@ -283,7 +293,7 @@ public class GUI_date extends DateCalc {
 					
 					ChangeLabel(get1, gylb, gmlb,gwlb, gdlb, gadlb);
 						
-						ChangeDay(fromDateTime,EdayModel);
+					ChangeDay(fromDateTime,EdayModel);
 				}
 			});
 
@@ -296,15 +306,10 @@ public class GUI_date extends DateCalc {
 		
 					ChangeLabel(get1, gylb, gmlb,gwlb, gdlb, gadlb);
 						
-						ChangeDay(fromDateTime,EdayModel);
+					ChangeDay(fromDateTime,EdayModel);
 				}
 			});
 			
-		 
-		//해야 할 것!!!
-		//이벤트처리에서  겹치는 거 줄이기 - 그룹화? =>함수로 만듦 
-		//다 하고나면 폰트랑 글씨 크기랑 글씨 위치 바꾸기 + 배경색
-		
 		
 		
 		f.add(p);
@@ -335,8 +340,9 @@ public class GUI_date extends DateCalc {
 		
 		for(int i=1; i<=12; i++) 
 			monthModel2.addElement(i); 
-
-		for(int i=1; i<=31; i++) 
+		
+		GetDayOfMonth(startDate);
+		for(int i=1; i<=lengthOfMon; i++) 
 		    dayModel2.addElement(i);
 	
 		
@@ -361,10 +367,10 @@ public class GUI_date extends DateCalc {
 		JComboBox<Integer> dayCombo3 = new JComboBox<Integer>();
 		DefaultComboBoxModel<Integer> dayModel3 = new DefaultComboBoxModel<Integer>();
 		
-		for(int i=0;i<1000;i++) {
-			yearModel3.addElement(i);
-			monthModel3.addElement(i);
-			dayModel3.addElement(i);
+		for(int ie=0;ie<1000;ie++) {
+			yearModel3.addElement(ie);
+			monthModel3.addElement(ie);
+			dayModel3.addElement(ie);
 		}
 		
 
@@ -398,32 +404,27 @@ public class GUI_date extends DateCalc {
 		radio[0].setSelected(true);
 		group.add(radio[0]);
 		group.add(radio[1]);
-		
+
 		//시작일 선택하는 거 이벤트
 				yearCombo2.addItemListener(new ItemListener() {
 					public void itemStateChanged(ItemEvent e) {
 						int y= (int) e.getItem();
+						  GetDayOfMonth(startDate);
 						startDate=startDate.withYear(y);
-						if(radio[0].isSelected()){
-			                get.setText((AddDate(startDate,ay,am,ad)).format(formatter)+getd);
-			            }
-						else if(radio[1].isSelected()) {
-			                get.setText(MinusDate(startDate,ay,am,ad).format(formatter)+getd);
-						}
+						ChangeDay(startDate,dayModel2);
+						ChangeLabel2(get,radio);
 					}
 				});
 				
 				monthCombo2.addItemListener(new ItemListener() {
 					public void itemStateChanged(ItemEvent e) {
 						int m= (int) e.getItem();
+						
+						GetDayOfMonth(m,startDate);
 						startDate=startDate.withMonth(m);
-						if(radio[0].isSelected()){
-			                get.setText((AddDate(startDate,ay,am,ad)).format(formatter)+getd);
-			            }
-						else if(radio[1].isSelected()) {
-			                get.setText(MinusDate(startDate,ay,am,ad).format(formatter)+getd);
-			               
-						}
+						
+						ChangeDay(startDate,dayModel2);
+						ChangeLabel2(get,radio);
 					}
 				});
 
@@ -431,13 +432,10 @@ public class GUI_date extends DateCalc {
 				dayCombo2.addItemListener(new ItemListener() {
 					public void itemStateChanged(ItemEvent e) {
 						int d= (int) e.getItem();
+						  GetDayOfMonth(startDate);
 						startDate=startDate.withDayOfMonth(d);
-						if(radio[0].isSelected()){
-			                get.setText((AddDate(startDate,ay,am,ad)).format(formatter)+getd);
-			            }
-						else if(radio[1].isSelected()) {
-			                get.setText(MinusDate(startDate,ay,am,ad).format(formatter)+getd);
-						}
+						//ChangeDay(startDate,dayModel2);
+						ChangeLabel2(get,radio);
 					}
 				});
 				
@@ -447,12 +445,8 @@ public class GUI_date extends DateCalc {
 		yearCombo3.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				ay= (int) e.getItem();
-				if(radio[0].isSelected()){
-	                get.setText((AddDate(startDate,ay,am,ad)).format(formatter)+getd);
-	            }
-				else if(radio[1].isSelected()) {
-	                get.setText(MinusDate(startDate,ay,am,ad).format(formatter)+getd);
-				}
+				
+				ChangeLabel2(get,radio);
 				
 			}
 		});
@@ -460,12 +454,8 @@ public class GUI_date extends DateCalc {
 		monthCombo3.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				am= (int) e.getItem();
-				if(radio[0].isSelected()){
-	                get.setText((AddDate(startDate,ay,am,ad)).format(formatter)+getd);
-	            }
-				else {
-					get.setText(MinusDate(startDate,ay,am,ad).format(formatter)+getd);
-				}
+				
+				ChangeLabel2(get,radio);
 			}
 		});
 
@@ -473,12 +463,8 @@ public class GUI_date extends DateCalc {
 		dayCombo3.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				ad= (int) e.getItem();
-				if(radio[0].isSelected()){
-	                get.setText((AddDate(startDate,ay,am,ad)).format(formatter)+getd);
-	            }
-				else {
-					get.setText(MinusDate(startDate,ay,am,ad).format(formatter)+getd);
-				}
+				
+				ChangeLabel2(get,radio);
 			}
 		});
 		
@@ -555,7 +541,9 @@ public class GUI_date extends DateCalc {
 		f.setVisible(true);
 		
 		((JFrame) f).setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
+		
+	}
 	}
 
-}
+

@@ -3,7 +3,11 @@ public class StanCalc extends Calc{
 	
 	NUM cur = new NUM();
 	
-	public void square() {
+	public Double pers(Double num) { // %
+		return num/100;
+	}
+	
+	public void square() { //x^2
 		if (cur.isInt()) { //정수이면
 			int tmp = cur.i_num;
 			cur.i_num = tmp*tmp;
@@ -15,7 +19,7 @@ public class StanCalc extends Calc{
 		}
 	}
 	
-	public void inverse() {
+	public void inverse() { //x/1
 		if (cur.isInt()) { //정수이면 
 			if (cur.i_num != 1) { //1이 아닐 경우 (1이면 그대로)
 				int tmp = cur.i_num;
@@ -30,19 +34,12 @@ public class StanCalc extends Calc{
 		}
 	}
 	
-	public void sqrt() {
+	public void sqrt() { //2루트x
 		cur.d_num = Math.sqrt(cur.d_num); //실수를 통해 제곱근을 double로 반환
 		cur.canInt();
 	}
 	
-	public void pers() {
-		cur.d_num /= 100;
-		cur.i_num = (int)cur.d_num;
-		if(cur.canInt()) { }
-		else {
-			cur.IorD = false;
-		}
-	}
+	
 	
 	public void add(NUM n) {
 		if (cur.isInt()) {
@@ -104,5 +101,16 @@ public class StanCalc extends Calc{
 			cur.d_num /= n.d_num;
 			cur.i_num = (int)cur.d_num;
 		}
+	}
+	
+	public double calculation(int op, double x) { //하나만 받는 경우
+		double result = 0;
+		
+		return result;
+	}
+	public double calculation(int op, double x, double y) { //두개 받는 경우
+		double result = 0;
+		
+		return result;
 	}
 }

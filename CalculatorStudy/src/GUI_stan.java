@@ -88,14 +88,14 @@ class ButtonPanel extends JPanel {
 		JButton[] bt = new JButton[24];
 		setLayout(new GridLayout(6,4,3,3));
 		
-		bt[0] = new JButton("%");
-		bt[1] = new JButton("CE");
-		bt[2] = new JButton("C");
-		bt[3] = new JButton("<-");
+		bt[0] = new JButton("%"); //즉각
+		bt[1] = new JButton("CE"); 
+		bt[2] = new JButton("C"); 
+		bt[3] = new JButton("<-"); 
 		
-		bt[4] = new JButton("1/x");
-		bt[5] = new JButton("x^2");
-		bt[6] = new JButton("2루트x");
+		bt[4] = new JButton("1/x"); //즉각
+		bt[5] = new JButton("x^2"); //즉각
+		bt[6] = new JButton("2루트x"); //즉각
 		bt[7] = new JButton("/");
 	
 		bt[8] = new JButton("7");
@@ -124,7 +124,8 @@ class ButtonPanel extends JPanel {
 			bt[i].setForeground(Color.WHITE);
 			add(bt[i]);
 			
-			if ((i>7 && i%4!=3 && i<20) || i==21) { //숫자패널이면~
+			// (0) 숫자 패널 입력
+			if ((i>7 && i%4!=3 && i<20) || i==21) {
 				
 				bt[i].addActionListener(new ActionListener() {
 					String newtext;
@@ -148,6 +149,7 @@ class ButtonPanel extends JPanel {
 					}
 				});
 			}
+			
 			
 			
 			

@@ -60,7 +60,7 @@ public class DateCalc extends Calculator implements Dnum{
 			getmonth=period.getMonths();	getmonth=getmonth<0?-getmonth:getmonth;
 			getdays=period.getDays();	getdays=getdays<0?-getdays:getdays;
 			getalldays=(int)ChronoUnit.DAYS.between(toDateTime, fromDateTime); getalldays=getalldays<0?-getalldays:getalldays;
-			
+			week=0; //이걸 안 쓰면 저번에 구한 week가 1이면 초기화 되지 않아서 0주여도 1로 나옴
 			if(getdays>=7) {
 				week=getdays/7;
 				getdays-=week*7;
@@ -98,16 +98,18 @@ public class DateCalc extends Calculator implements Dnum{
 	public static void GetDayOfMonth(LocalDate date) {
 		lengthOfMon = date.lengthOfMonth();
 	}
-	//java.time.DateTimeException 없애기
+	/*//java.time.DateTimeException 없애기
 	public static void GetDayOfMonth(int month,LocalDate date) {
-		int l=lengthOfMon; //원래 3월이어서 31일
-		int bigwo=(date.withMonth(month)).lengthOfMonth(); //2월 클릭하면 28일이 끝이게 됨
-	
+		int l=date.getDayOfMonth(); //31일을 클릭해 놓음
+		int bigwo=(date.withMonth(month)).lengthOfMonth(); //2월 클릭하면 28일이 끝이게 됨. 2월 31일은 없어서 오류가 남
+		
+		GetDayOfMonth(date); 
+		
 		if(l>bigwo) {
 			date=date.withDayOfMonth(bigwo);
 		}
-		lengthOfMon = date.lengthOfMonth();
-	}
+		
+	}*/
 	public static void main(String[] args) {
 	
 			

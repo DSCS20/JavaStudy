@@ -16,11 +16,6 @@ import java.time.LocalDate;
 
 
 public class GUI_date extends DateCalc {
-	 
-	//해야 할 것!!!
-	//31일인 월이었다가 30일인 월로 바뀔때 일을 31로 클릭해놨으면 오류가 남 이거해결해야함 => 함수에 try catch문?
-	//=>월 클릭하는 이벤트에서 바꿔야함??
-	//Exception in thread "AWT-EventQueue-0" java.time.DateTimeException: Invalid date 'FEBRUARY 31' ..날짜 넘기는 거 두 패널 모두 고쳐야 함
 	
 	//다 하고나면 폰트랑 글씨 크기랑 글씨 위치 바꾸기 + 배경색
 
@@ -262,6 +257,11 @@ public class GUI_date extends DateCalc {
 			dayCombo.addItemListener(new ItemListener() {
 				public void itemStateChanged(ItemEvent e) {
 					int d= (int) e.getItem();
+					GetDayOfMonth(toDateTime);
+					
+					if(d>lengthOfMon) //2월이 28일일인데 31이 클릭돼있으면 오류가 나므로 31을 28로 바꾼다
+						d=lengthOfMon;
+					
 					toDateTime=toDateTime.withDayOfMonth(d);
 					DateCalc.FromToDate(toDateTime,fromDateTime);
 					
@@ -301,6 +301,11 @@ public class GUI_date extends DateCalc {
 			EdayCombo.addItemListener(new ItemListener() {
 				public void itemStateChanged(ItemEvent e) {
 					int d= (int) e.getItem();
+					GetDayOfMonth(fromDateTime);
+					
+					if(d>lengthOfMon) //2월이 28일일인데 31이 클릭돼있으면 오류가 나므로 31을 28로 바꾼다
+						d=lengthOfMon;
+					
 					fromDateTime=fromDateTime.withDayOfMonth(d);
 					DateCalc.FromToDate(toDateTime,fromDateTime);
 		
@@ -419,10 +424,8 @@ public class GUI_date extends DateCalc {
 				monthCombo2.addItemListener(new ItemListener() {
 					public void itemStateChanged(ItemEvent e) {
 						int m= (int) e.getItem();
-						
-						GetDayOfMonth(m,startDate);
+						GetDayOfMonth(startDate);
 						startDate=startDate.withMonth(m);
-						
 						ChangeDay(startDate,dayModel2);
 						ChangeLabel2(get,radio);
 					}
@@ -432,9 +435,12 @@ public class GUI_date extends DateCalc {
 				dayCombo2.addItemListener(new ItemListener() {
 					public void itemStateChanged(ItemEvent e) {
 						int d= (int) e.getItem();
-						  GetDayOfMonth(startDate);
+						GetDayOfMonth(startDate);
+						
+						if(d>lengthOfMon) //2월이 28일일인데 31이 클릭돼있으면 오류가 나므로 31을 28로 바꾼다
+							d=lengthOfMon;
+						
 						startDate=startDate.withDayOfMonth(d);
-						//ChangeDay(startDate,dayModel2);
 						ChangeLabel2(get,radio);
 					}
 				});

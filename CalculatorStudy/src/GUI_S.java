@@ -11,9 +11,14 @@ public class GUI_S extends JFrame implements ActionListener {
 	GridBagConstraints gbc;
 	DecimalFormat df= new DecimalFormat("#,##0.###############"); //출력 포맷
 	StringBuffer sb = new StringBuffer(); //스트링버퍼
-	Calc C = new StanCalc();
+	StanCalc C = new StanCalc();
 	
 	boolean positive = true; //양수,음수 판별. 처음에는 양수가 기본
+	boolean flag = false; //깃발. true일 경우 버퍼를 초기화(즉, 새로운 숫자로 받아들임)
+	boolean inProcess = false; //계산이 진행중인지 표시. 진행중이면 "pre"값을 가지고 있는다
+	boolean zero = false;
+	double pre = 0;
+
 	HashMap <String, Integer> op = setHashMap();
 	
 	JLabel log;
@@ -32,7 +37,7 @@ public class GUI_S extends JFrame implements ActionListener {
 		//숫자와 로그를 보여주는 패널
 		JPanel mainP = new JPanel();
 		//mainP 배경
-		mainP.setBackground(Color.GRAY);
+		mainP.setBackground(Color.LIGHT_GRAY);
 		mainP.setLayout(new GridLayout(2,1));
 		//log
 		log = new JLabel("for logs");
@@ -58,7 +63,7 @@ public class GUI_S extends JFrame implements ActionListener {
 		buttonP.setLayout(new GridLayout(6,4,3,3));
 		//버튼들
 		JButton[] bt = new JButton[24];
-		String[] btn = {"%", "CE", "C", "<-", "1/x", "x²", "²√x", "/", "7", "8", "9", "x",
+		String[] btn = {"%", "CE", "C", "<-", "1/x", "x²", "²√x", "/", "7", "8", "9", "×",
 						"4", "5", "6", "-", "1", "2", "3", "+", "±", "0", ".", "="};
 		for (int i=0; i<24; i++) {
 			bt[i] = new JButton(btn[i]); //이름 차례대로 넣기
@@ -88,40 +93,62 @@ public class GUI_S extends JFrame implements ActionListener {
 
 	
 	public void actionPerformed(ActionEvent e) {
-		
-		//(1)숫자 버튼이 눌렸을 경우
-		if(e.getActionCommand()=="1") { sb.append(1); }
-		else if(e.getActionCommand()=="2") { sb.append(2); }
-		else if(e.getActionCommand()=="3") { sb.append(3); }
-		else if(e.getActionCommand()=="4") { sb.append(4); }
-		else if(e.getActionCommand()=="5") { sb.append(5); }
-		else if(e.getActionCommand()=="6") { sb.append(6); }
-		else if(e.getActionCommand()=="7") { sb.append(7); }
-		else if(e.getActionCommand()=="8") { sb.append(8); }
-		else if(e.getActionCommand()=="9") { sb.append(9); }
-		else if(e.getActionCommand()=="0") { //0은 특별하게 처리 ("000"이 저장되지 않도록)
-			if (sb.length()<1) {}//첫 숫자가 0으로 눌린거면 넘어감
-			else sb.append(0); //그 외에는 추가함
-			}
-		else if(e.getActionCommand()=="±") { positive = !positive; } //양수는 음수로,, 음수는 양수로,,,
-		else if(e.getActionCommand()==".") { if (sb.indexOf(".")==-1) sb.append("."); }
-		//소수점이 이미 있으면 추가하지 않는다.
-		
-		/* ------------------------------------------------------------------------------------------*/
-		
-		//(2) 즉각적용되는 연산자가 눌린 경우
-		//%
-		else if(e.getActionCommand()=="%") {
-			setLogI("%");
+		try {
+			//(1)숫자 버튼이 눌렸을 경우
+			if(e.getActionCommand()=="1") { sb.append(1); }
+			else if(e.getActionCommand()=="2") { sb.append(2); }
+			else if(e.getActionCommand()=="3") { sb.append(3); }
+			else if(e.getActionCommand()=="4") { sb.append(4); }
+			else if(e.getActionCommand()=="5") { sb.append(5); }
+			else if(e.getActionCommand()=="6") { sb.append(6); }
+			else if(e.getActionCommand()=="7") { sb.append(7); }
+			else if(e.getActionCommand()=="8") { sb.append(8); }
+			else if(e.getActionCommand()=="9") { sb.append(9); }
+			else if(e.getActionCommand()=="0") { //0은 특별하게 처리 ("000"이 저장되지 않도록)
+				if (sb.length()<1) { }//첫 숫자가 0으로 눌린거면 넘어감
+				else {
+					sb.append(0); //그 외에는 추가함
+					zero = true;
+				}}
+			else if(e.getActionCommand()=="±") { positive = !positive; } //양수는 음수로,, 음수는 양수로,,,
+			else if(e.getActionCommand()==".") { if (sb.indexOf(".")==-1) sb.append("."); }
+			//소수점이 이미 있으면 추가하지 않는다.
+			
+			/* ------------------------------------------------------------------------------------------*/
+			
+			//(2) 즉각적용되는 연산자가 눌린 경우
+			else if(e.getActionCommand()=="%") { setLogI("%"); }
+			else if(e.getActionCommand()=="1/x") { setLogI("1/x"); }
+			else if(e.getActionCommand()=="x²") { setLogI("x²"); }
+			else if(e.getActionCommand()=="²√x") { setLogI("²√x"); }
+			
+			/* ------------------------------------------------------------------------------------------*/
+			
+			//(3) =이 필요한 연산자가 눌린 경우
+			else if(e.getActionCommand()=="/") { }
+			else if(e.getActionCommand()=="×") { }
+			else if(e.getActionCommand()=="-") { }
+			else if(e.getActionCommand()=="+") { }
+			
+			/* ------------------------------------------------------------------------------------------*/
+			
+			//(4)제어자가 눌린 경우
+			else if(e.getActionCommand()=="CE") { }
+			else if(e.getActionCommand()=="C") { }
+			else if(e.getActionCommand()=="<-") { sb.deleteCharAt(sb.length()-1); } //버퍼의 뒤에서부터 삭제
+			else if(e.getActionCommand()=="=") { }
+			//label에 적용하기
+			setCur(sb);
+			
+			
+			
+		} catch (Exception e1) {
+			e1.printStackTrace();
 		}
 		
-		//(3) =이 필요한 연산자가 눌린 경우
-		
-		//(4)제어자가 눌린 경우
-		//C, CE, <-, =
-		
-		//label에 적용하기
-		setCur(sb);
+	}
+	public void clearBuffer() {
+		sb.delete(0, sb.length());
 	}
 	
 	public void setCur(StringBuffer sb) { //Current 갱신
@@ -138,8 +165,11 @@ public class GUI_S extends JFrame implements ActionListener {
 					
 				}
 				else {
-					a = sb.toString();
-					a = df.format(Double.parseDouble(a));
+					a = sb.substring(0, sb.indexOf("."));
+					a = df.format(Integer.parseInt(a));
+					b = sb.substring(sb.indexOf(".")+1, sb.length());
+					a += ".";
+					a += b;
 					changeCur(a);
 						
 				}
@@ -154,6 +184,11 @@ public class GUI_S extends JFrame implements ActionListener {
 		}
 		//버퍼가 비어있다면
 		else current.setText("0");
+		
+		if (flag) { //flag가 세워져 있다면 초기화하며 마무리
+			clearBuffer();
+			flag = !flag;
+		}
 	}
 	
 	public void changeCur(String str) { //받은 문자열을 라벨로 반환하는 메서드. 음수,양수확인 추가
@@ -164,18 +199,37 @@ public class GUI_S extends JFrame implements ActionListener {
 		}
 	}
 	
-	public StringBuffer setLogI(String oper) { // 즉각적으로 적용되는 경우
-		StringBuffer result = null;
+	public void setLogI(String oper) throws ParseException { // 즉각적으로 적용되는 경우
+		StringBuffer result = new StringBuffer();
+		Number pre = df.parse(current.getText());
+		System.out.println(pre + "," + oper);
 		//1. current의 현재 숫자를 받아옴
-		Double cur = Double.parseDouble(sb.toString());
+		double cur = pre.doubleValue();
+		//2. 연산자와 함께 StanCalc의 calculation => 결과받아옴
+		cur = C.calculation(op.get(oper), cur);
 		System.out.println(cur);
-		
-		return result;
+		//3. log에 표시
+		changelog(op.get(oper), pre);
+		//4. 계산결과를 current로 표시. 및 플래그 세우기
+		sb.delete(0, sb.length());
+		sb.append(cur);
+		flag = true;
+	}
+	public String changelog(int op, Number pre) {
+		String str = "";
+		switch (op) {
+		case 0: str = "%(" + pre + ")"; break;
+		case 1: str = "1/(" + pre + ")"; break;
+		case 2: str = "(" + pre + ")²"; break;
+		case 3: str = "²√(" + pre + ")"; break;
+		}
+		log.setText(str);
+		return str;
 	}
 	
 	public HashMap setHashMap() {
 		HashMap <String, Integer> tmp = new HashMap <String, Integer>();
-		String[] oper = {"%", "1/x", "x²", "²√x", "/", "x", "-", "+", "=", "CE", "C", "<-"};
+		String[] oper = {"%", "1/x", "x²", "²√x", "/", "×", "-", "+", "=", "CE", "C", "<-"};
 		for (int i=0; i<12; i++) {
 			tmp.put(oper[i], i);
 		}

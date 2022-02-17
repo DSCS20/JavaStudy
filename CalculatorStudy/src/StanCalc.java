@@ -3,40 +3,20 @@ public class StanCalc extends Calc{
 	
 	NUM cur = new NUM();
 	
-	public Double pers(Double num) { // %
+	public double pers(double num) { // %
 		return num/100;
 	}
 	
-	public void square() { //x^2
-		if (cur.isInt()) { //정수이면
-			int tmp = cur.i_num;
-			cur.i_num = tmp*tmp;
-			cur.d_num = (double)cur.i_num;
-		} else { //실수이면
-			double tmp = cur.d_num;
-			cur.d_num = tmp*tmp;
-			cur.i_num = (int)cur.d_num;
-		}
+	public double inverse(double num) { //x/1
+		return 1/num;
 	}
 	
-	public void inverse() { //x/1
-		if (cur.isInt()) { //정수이면 
-			if (cur.i_num != 1) { //1이 아닐 경우 (1이면 그대로)
-				int tmp = cur.i_num;
-				cur.d_num = 1/tmp;
-				cur.i_num = (int)cur.i_num;
-				cur.IorD = false; //실수가 되므로 실수처리해줌
-			}
-		} else {
-			double tmp = cur.d_num;
-			cur.d_num = 1/tmp;
-			cur.i_num = (int)cur.d_num;
-		}
+	public double square(double num) { //x^2
+		return num*num;
 	}
 	
-	public void sqrt() { //2루트x
-		cur.d_num = Math.sqrt(cur.d_num); //실수를 통해 제곱근을 double로 반환
-		cur.canInt();
+	public double sqrt(double num) { //2루트x
+		return Math.sqrt(num);
 	}
 	
 	
@@ -104,7 +84,15 @@ public class StanCalc extends Calc{
 	}
 	
 	public double calculation(int op, double x) { //하나만 받는 경우
-		double result = 0;
+		double result; //받은 값을 result에 저장
+		
+		switch(op) {
+			case 0: result = pers(x); break;
+			case 1: result = inverse(x); break;
+			case 2: result = square(x); break;
+			case 3: result = sqrt(x); break;
+			default: result = x; //오류방지
+		}
 		
 		return result;
 	}

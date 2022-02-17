@@ -190,6 +190,11 @@ public class GUI_seyeon extends JFrame implements ActionListener{
 			result2+=data;
 			output.setText(result2);
 		}
+		else if(data.equals("A")||data.equals("B")||data.equals("C")||data.equals("D")||data.equals("E")||data.equals("F"))
+		{
+			result2+=data;
+			output.setText(result2);
+		}
 		else if(data.equals("←")) {
 			int len=output.getText().length();
 			if(len==1)
@@ -209,14 +214,15 @@ public class GUI_seyeon extends JFrame implements ActionListener{
 		}
 		else if(data.equals("CE"))
 		{
-			result="";
-			result1="";
-			result2="";
-			str.setText("");
-			output.setText("0");
-			bun[0]="";
-			bun[1]="";
-			bun[2]="";
+				result="";
+				result1="";
+				result2="";
+				str.setText("");
+				output.setText("0");
+				bun[0]="";
+				bun[1]="";
+				bun[2]="";
+			
 		}
 		else if(data.equals("."))
 		{
@@ -250,7 +256,7 @@ public class GUI_seyeon extends JFrame implements ActionListener{
 		}
 		else if(data.equals("*")||data.equals("/")||data.equals("+")||data.equals("-")||
 				data.equals("AND")||data.equals("OR")||data.equals("NOT")||data.equals("XOR")||
-				data.equals("%"))
+				data.equals("%")||data.equals(">>")||data.equals("<<"))
 		{
 			if(result1.equals(""))
 			{
@@ -338,7 +344,57 @@ public class GUI_seyeon extends JFrame implements ActionListener{
 				output.setText("0으로 나눌 수 없다");
 			}
 		}
-		//else if
+		else if(data.equals("HEX")||data.equals("DEC")||data.equals("OCT")||data.equals("BIN"))
+		{
+			if(bun[0].equals(""))
+			{
+				if(!result2.equals("0"))
+				{
+					if(data.equals("BIN"))
+					{
+						tr="b";
+					}
+					else if(data.equals("OCT"))
+					{
+						tr="o";
+					}
+					else if(data.equals("DEC"))
+					{
+						tr="d";
+					}
+					else if(data.equals("HEX"))
+					{
+						tr="h";
+					}
+					bun[3]=Trans();
+				}
+			}
+			else
+			{
+				if(data.equals("BIN"))
+				{
+					tr="b1";
+				}
+				else if(data.equals("OCT"))
+				{
+					tr="o1";
+				}
+				else if(data.equals("DEC"))
+				{
+					tr="d1";
+				}
+				else if(data.equals("HEX"))
+				{
+					tr="h1";
+				}
+				bun[3]=Trans();
+			}
+			output.setText(bun[3]);
+		}
+		else if(data.equals("+/-"))
+		{
+			
+		}
 		
 	}
 	
@@ -464,7 +520,7 @@ public class GUI_seyeon extends JFrame implements ActionListener{
 			else
 				sum += ~Integer.parseInt(bun[0]);
 		}
-		if(bun[1].equals("AND"))
+		if(bun[1].equals("XOR"))
 		{
 			if(bun[0].indexOf(".") != -1 || bun[2].indexOf(".") != -1)
 			{
@@ -474,6 +530,26 @@ public class GUI_seyeon extends JFrame implements ActionListener{
 			else
 				sum += Integer.parseInt(bun[0]) ^ Integer.parseInt(bun[2]);
 		}
+		if(bun[1].equals(">>"))
+		{
+			if(bun[0].indexOf(".") != -1 || bun[2].indexOf(".") != -1)
+			{
+				dou = big1.add(big2,MathContext.DECIMAL32).doubleValue();
+				sum += dou.toString();
+			}
+			else
+				sum += Integer.parseInt(bun[0]) >> Integer.parseInt(bun[2]);
+		}
+		if(bun[1].equals("<<"))
+		{
+			if(bun[0].indexOf(".") != -1 || bun[2].indexOf(".") != -1)
+			{
+				dou = big1.add(big2,MathContext.DECIMAL32).doubleValue();
+				sum += dou.toString();
+			}
+			else
+				sum += Integer.parseInt(bun[0]) << Integer.parseInt(bun[2]);
+		}
 		return sum;
 
 	}
@@ -481,6 +557,47 @@ public class GUI_seyeon extends JFrame implements ActionListener{
 	public String Trans()
 	{
 		String result = "";
+		long tr1=0;
+		if(tr=="b") //BIN
+		{
+			tr1=Long.parseLong(result2);
+			result+=Long.toBinaryString(tr1);
+		}
+		else if(tr=="b1")
+		{
+			tr1=Long.parseLong(bun[0]);
+			result+=Long.toBinaryString(tr1);
+		}
+		else if(tr=="o") //OCT
+		{
+			tr1=Long.parseLong(result2);
+			result+=Long.toOctalString(tr1);
+		}
+		else if(tr=="o1")
+		{
+			tr1=Long.parseLong(bun[0]);
+			result+=Long.toOctalString(tr1);
+		}
+		else if(tr=="d")//DEC
+		{
+			tr1=Long.parseLong(result2);
+			result+=Long.toString(tr1);
+		}
+		else if(tr=="d1")
+		{
+			tr1=Long.parseLong(bun[0]);
+			result+=Long.toString(tr1);
+		}
+		else if(tr=="h")//HEX
+		{
+			tr1=Long.parseLong(result2);
+			result+=Long.toHexString(tr1);
+		}
+		else if(tr=="h1")
+		{
+			tr1=Long.parseLong(bun[0]);
+			result+=Long.toHexString(tr1);
+		}
 		return result;
 	}
 	

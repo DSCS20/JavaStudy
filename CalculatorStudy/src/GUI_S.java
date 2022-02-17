@@ -13,6 +13,9 @@ public class GUI_S extends JFrame implements ActionListener {
 	StringBuffer sb = new StringBuffer(); //스트링버퍼
 	Calc C = new StanCalc();
 	
+	boolean positive = true; //양수,음수 판별. 처음에는 양수가 기본
+	HashMap <String, Integer> op = setHashMap();
+	
 	JLabel log;
 	JLabel current;
 	
@@ -100,12 +103,16 @@ public class GUI_S extends JFrame implements ActionListener {
 			if (sb.length()<1) {}//첫 숫자가 0으로 눌린거면 넘어감
 			else sb.append(0); //그 외에는 추가함
 			}
-		//+/-, .도 추가해야 함
+		else if(e.getActionCommand()=="±") { positive = !positive; } //양수는 음수로,, 음수는 양수로,,,
+		else if(e.getActionCommand()==".") { if (sb.indexOf(".")==-1) sb.append("."); }
+		//소수점이 이미 있으면 추가하지 않는다.
+		
+		/* ------------------------------------------------------------------------------------------*/
 		
 		//(2) 즉각적용되는 연산자가 눌린 경우
 		//%
 		else if(e.getActionCommand()=="%") {
-			
+			setLogI("%");
 		}
 		
 		//(3) =이 필요한 연산자가 눌린 경우
@@ -114,6 +121,10 @@ public class GUI_S extends JFrame implements ActionListener {
 		//C, CE, <-, =
 		
 		//label에 적용하기
+		setCur(sb);
+	}
+	
+	public void setCur(StringBuffer sb) { //Current 갱신
 		String a; String b;
 		if(sb.length()>0) {
 			//버퍼에 소수점이 있으면~
@@ -123,28 +134,53 @@ public class GUI_S extends JFrame implements ActionListener {
 					a = sb.substring(0, sb.indexOf("."));
 					a = df.format(Integer.parseInt(a));
 					a += ".";
-					current.setText(a);
-					//a를 숫자로 저장하는 ~~
+					changeCur(a);
+					
 				}
 				else {
 					a = sb.toString();
 					a = df.format(Double.parseDouble(a));
-					current.setText(a);
-					
+					changeCur(a);
+						
 				}
 			}
 			//버퍼에 소수점이 없으면~
 			else {
 				a = sb.toString();
 				a = df.format(Integer.parseInt(a));
-				current.setText(a);
+				changeCur(a);
+				
 			}
 		}
 		//버퍼가 비어있다면
 		else current.setText("0");
 	}
 	
+	public void changeCur(String str) { //받은 문자열을 라벨로 반환하는 메서드. 음수,양수확인 추가
+		if (positive) {
+			current.setText(str);
+		} else {
+			current.setText("-" + str);
+		}
+	}
 	
+	public StringBuffer setLogI(String oper) { // 즉각적으로 적용되는 경우
+		StringBuffer result = null;
+		//1. current의 현재 숫자를 받아옴
+		Double cur = Double.parseDouble(sb.toString());
+		System.out.println(cur);
+		
+		return result;
+	}
+	
+	public HashMap setHashMap() {
+		HashMap <String, Integer> tmp = new HashMap <String, Integer>();
+		String[] oper = {"%", "1/x", "x²", "²√x", "/", "x", "-", "+", "=", "CE", "C", "<-"};
+		for (int i=0; i<12; i++) {
+			tmp.put(oper[i], i);
+		}
+		return tmp;
+	}
 	public static void main(String[] args) {
 		new GUI_S();
 

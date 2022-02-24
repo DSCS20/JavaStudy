@@ -10,7 +10,7 @@ import java.time.temporal.ChronoUnit;
 //java.util.Date > java.util.Calendar > java.time
 
 
-public class DateCalc extends Calculator implements Dnum{
+public class DateCalc extends Calculator{
 	
 	DateCalc(){};
 	

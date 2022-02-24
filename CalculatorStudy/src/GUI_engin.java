@@ -4,132 +4,142 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.event.*;
 
-public class GUI_engin extends JFrame{
+//https://chaengstory.tistory.com/46
+public class GUI_engin extends JFrame implements ActionListener{
+	JLabel resultlabel;  //연산 결과창
+	JLabel loglabel;
+	boolean state=false;  //화면에 표시된 number 핸들러
+	double num1, num2;
+	double result;
+	String func="";  //기능 연산자
+	String lastput="";
+	JButton[] button;
+	int ndcnt=1;
 	
-	GridBagLayout gb;
-	GridBagConstraints gbc;
+	String btn[]= {"DEG","삼각법","CE","2nd","ㅠ","e","C","<-","x^2","(",")","n!","/","x root 2","7","8","9","*",
+			"x^y","4","5","6","-","x root 2","1","2","3","+","log","+/-","0",".","=","ln"};
 	
 	public GUI_engin() {
 		
 		super("계산기_공학용");
+		super.setResizable(true);  //프레임 크시를 사용자가 조절
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JButton[] bt = new JButton[33];
-		setLayout(new GridLayout(7,5,3,3));
+		//연산결과창
+		resultlabel=new JLabel("0",JLabel.RIGHT);  //처음 출력될 값, 위치
+		JPanel mainView=new JPanel();
+		resultlabel.setFont(new Font("Serif",Font.BOLD,40));  //폰트 지정
+		resultlabel.setBackground(Color.WHITE);
+		resultlabel.setOpaque(true);  //배경색 적용을 위해 불투명 설정
 		
-		bt[0]=new JButton("DEG");
-		bt[1]=new JButton("삼각법");
-		JPanel degtri=new JPanel();
-		degtri.add(bt[0]);
-		degtri.add(bt[1]);
+		//로그창
+		loglabel=new JLabel("logs..",JLabel.RIGHT);  //처음 출력될 값, 위치
+		loglabel.setFont(new Font("Serif",Font.BOLD,15));  //폰트 지정
+		loglabel.setBackground(Color.WHITE);
+		loglabel.setOpaque(true);  //배경색 적용을 위해 불투명 설정
 		
-		bt[2]=new JButton("2nd");
-		bt[3]=new JButton("ㅠ");
-		bt[4]=new JButton("e");
-		bt[5]=new JButton("C");
-		//CE버튼 추가하기
-		bt[6]=new JButton("<-");
+		//버튼 창 gui
+		JPanel btnView=new JPanel();
+		btnView.setLayout(new GridLayout(7,5,2,2));   //row, col, 간격, 간격
+		button = new JButton[btn.length]; 
+		btnView.setBackground(Color.WHITE);
+		btnView.setOpaque(true);
 		
-		bt[7]=new JButton("x^2");
-		bt[8]=new JButton("(");
-		bt[9]=new JButton(")");
-		bt[10]=new JButton("n!");
-		bt[11]=new JButton("/");
-		
-		bt[12]=new JButton("x root 2");
-		bt[13]=new JButton("7");
-		bt[14]=new JButton("8");
-		bt[15]=new JButton("9");
-		bt[16]=new JButton("*");
-		
-		bt[17]=new JButton("x^y");
-		bt[18]=new JButton("4");
-		bt[19]=new JButton("5");
-		bt[20]=new JButton("6");
-		bt[21]=new JButton("-");
-		
-		bt[22]=new JButton("x root 2");
-		bt[23]=new JButton("1");
-		bt[24]=new JButton("2");
-		bt[25]=new JButton("3");
-		bt[26]=new JButton("+");
-		
-		bt[27]=new JButton("log");
-		bt[28]=new JButton("+/-");
-		bt[29]=new JButton("0");
-		bt[30]=new JButton(".");
-		bt[31]=new JButton("=");
-		
-		bt[32]=new JButton("ln");
-	
-		for (int i=2; i<33; i++) {
-			add(bt[i]);
+		 //DEG, 삼각법, CE 외 나머지 
+		for(int i=3; i<btn.length; i++) {
+			button[i]=new JButton(btn[i]);
+			button[i].setFont(new Font("Serif",Font.BOLD,30));
+			button[i].addActionListener(this);
+			btnView.add(button[i]);
 		}
 		
-		Container c = getContentPane();
-		c.setLayout(new GridBagLayout());
+		 //DEG, 삼각법, CE
+		for(int i=0; i<3; i++) {   
+			button[i]=new JButton(btn[i]);
+			button[i].setFont(new Font("Serif",Font.BOLD,30));
+			button[i].addActionListener(this);
+		}
+		JPanel degtri=new JPanel(); 
+		degtri.add(button[0]);
+		degtri.add(button[1]);
+		degtri.add(button[2]);
+
+		mainView.setLayout(new BorderLayout());  //동서남북 레이아웃 배치
+		add(loglabel, BorderLayout.NORTH);  //로그창 배치
+		add(resultlabel, BorderLayout.CENTER);  //연산결과창 배치
+		//add(degtri);
+		add(btnView, BorderLayout.SOUTH);
 		
-		gbc = new GridBagConstraints();
-		gbc.fill = GridBagConstraints.BOTH;
-		
-		mainPanel_engin mpen = new mainPanel_engin();  //for logs, cur NUM 라벨 배치
-		addPanel(mpen, 0, 0, 4, 2);
-		
-		
-		
-		pack();
+		setSize(400,600);
 		setLocation(400,500);
 		setVisible(true);
-		
-		
 	}
 	
-	public void addPanel(Component com, int x, int y, int width, int height) {
-		gbc.gridx = x;
-		gbc.gridy = y;
-		gbc.gridwidth = width;
-		gbc.gridheight = height;
-		gbc.weightx = 1;
-		gbc.weighty = 1;
-		
-		add(com, gbc);
-	}
-	
-
 	public static void main(String[] args) {
 		GUI_engin ex=new GUI_engin();
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String input=e.getActionCommand();
+		
+		if(input.equals("2nd")) {
+			//2nd아래 버튼들 바뀌게 
+			ndcnt++;
+			if(ndcnt%2==0) {
+				button[8].setText("x^2");
+				button[13].setText("xroot2");
+				button[18].setText("x^y");
+				button[23].setText("10^x");
+				button[28].setText("log");
+				button[33].setText("ln");
+			}else {
+				button[8].setText("x^3");
+				button[13].setText("xroot3");
+				button[18].setText("xrooty");
+				button[23].setText("2^x");
+				button[28].setText("logyx");
+				button[33].setText("e^x");
+			}
+		}else if(input.equals("<-")) {
+			 setBackSpace(getBackSpace().substring(0, getBackSpace().length() - 1));
+			 
+			 if (getBackSpace().length() < 1) {  // 더 이상 지울 숫자가 없으면, 0으로 clear
+		            lastput = "";
+		            num2 = 0;
+		            num1 = 0;
+		            resultlabel.setText("0");
+		        }
+			 
+		}else if(input.equals("=")) {
+			
+		}else { //?????
+			if(state) {
+				resultlabel.setText("0");
+				state=false;
+				num1=0;
+				num2=0;
+				lastput="";
+			}
+			
+			lastput += e.getActionCommand();
+			resultlabel.setText(lastput);
+			num2=Double.parseDouble(lastput);
+		}
+		
+		
+		
+	}
+
+	private void setBackSpace(String bs) {
+		resultlabel.setText(bs);
+	}
+
+	private String getBackSpace() {
+		return resultlabel.getText();
+	}
 }
 	
-	class mainPanel_engin extends JPanel{
-		
-		JLabel log;
-		JLabel cur;
-		
-		public mainPanel_engin() {
-			setBackground(Color.gray);
-			
-			setLayout(new GridLayout(2,1));
-			
-			log = new JLabel("for logs");
-			cur = new JLabel("0");
-			
-			Font font1 = new Font("고딕", Font.PLAIN, 20);
-			Font font2 = new Font("고딕", Font.PLAIN, 40);
-			
-			log.setFont(font1);
-			log.setHorizontalAlignment(SwingConstants.RIGHT);
-			log.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
-			
-			cur.setFont(font2);
-			cur.setHorizontalAlignment(SwingConstants.RIGHT);
-			cur.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
-			
-			add(log);
-			add(cur);
-			
-		}
-	}
 	
 		//2nd누르면 바뀌게, 근데 버튼을 어떻게 가져오지..? bt[7]=new JButton("x^3"); 이런식이 되어야 하는데
 		/*public void actionPerformed(ActionEvent e) {

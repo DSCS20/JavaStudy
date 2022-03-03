@@ -10,7 +10,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
-//import javax.swing.JOptionPane; 경고창 띄우기
 
 import java.time.LocalDate;
 import java.awt.Color;
@@ -19,9 +18,6 @@ import java.awt.Font;
 //https://codesandbox.io/s/vue2-wijmo-forked-wk50t?file=/src/components/HelloWorld.vue:378-391
 
 public class GUI_date extends DateCalc {
-	
-	//다 하고나면 폰트랑 글씨 크기랑 글씨 위치 바꾸기 + 배경색
-
 	
 	//월마다 일수가 다르니까 그거에 따라서 바꾸는 함수 -> 31일인 달 or 30일 or 28일 or 29일
 	public static void ChangeDay(LocalDate date,DefaultComboBoxModel<Integer> model) {
@@ -118,18 +114,15 @@ public class GUI_date extends DateCalc {
 		
 		JComboBox<String> combo;
 		combo=new JComboBox<String>(menu);
-		//combo.setBackground(Color.lightGray);
 		p.add(combo).setBounds(20,50,130,30);
 		combo.setFont(font);
 		
 		JComboBox<String> combo2;
 		combo2=new JComboBox<String>(menu);
-		//combo2.setBackground(Color.lightGray);
 		p2.add(combo2).setBounds(20,50,130,30);
 		combo.setFont(font);
 		
 		JLabel l1=new JLabel("시작일");
-		//l1.setForeground(Color.white);
 		l1.setFont(font);
 		l1.setBounds(20,98,40,20); 
 		p.add(l1);
@@ -141,46 +134,34 @@ public class GUI_date extends DateCalc {
 		JComboBox<Integer> yearCombo = new JComboBox<Integer>();
 		DefaultComboBoxModel<Integer> yearModel = new DefaultComboBoxModel<Integer>(); 
 		JLabel yLbl = new JLabel("년 "); 
-		//yLbl.setForeground(Color.white);
 		yLbl.setFont(font);
-		//yearCombo.setBackground(Color.lightGray);
 		
 		JComboBox<Integer> monthCombo = new JComboBox<Integer>();
 		DefaultComboBoxModel<Integer> monthModel = new DefaultComboBoxModel<Integer>();
 		JLabel mLbl = new JLabel("월"); 
-		//mLbl.setForeground(Color.white);
 		mLbl.setFont(font);
-		//monthCombo.setBackground(Color.lightGray);
 		
 		
 		JComboBox<Integer> dayCombo = new JComboBox<Integer>();
 		DefaultComboBoxModel<Integer> dayModel = new DefaultComboBoxModel<Integer>();
 		JLabel dLbl = new JLabel("일"); 
-		//dLbl.setForeground(Color.white);
 		dLbl.setFont(font);
-		//dayCombo.setBackground(Color.lightGray);
 		
 		
 		JComboBox<Integer> EyearCombo = new JComboBox<Integer>();
 		DefaultComboBoxModel<Integer> EyearModel = new DefaultComboBoxModel<Integer>(); 
 		JLabel EyLbl = new JLabel("년 "); 
-		//EyLbl.setForeground(Color.white);
 		EyLbl.setFont(font);
-		//EyearCombo.setBackground(Color.lightGray);
 		
 		JComboBox<Integer> EmonthCombo = new JComboBox<Integer>();
 		DefaultComboBoxModel<Integer> EmonthModel = new DefaultComboBoxModel<Integer>();
 		JLabel EmLbl = new JLabel("월"); 
 		EmLbl.setFont(font);
-		//EmLbl.setForeground(Color.white);
-		//EmonthCombo.setBackground(Color.lightGray);
 		
 		JComboBox<Integer> EdayCombo = new JComboBox<Integer>();
 		DefaultComboBoxModel<Integer> EdayModel = new DefaultComboBoxModel<Integer>();
 		JLabel EdLbl = new JLabel("일"); 
-		//EdLbl.setForeground(Color.white);
 		EdLbl.setFont(font);
-		//EdayCombo.setBackground(Color.lightGray);
 		
 		LocalDate now = LocalDate.now();
 		
@@ -219,7 +200,6 @@ public class GUI_date extends DateCalc {
 		
 
 		JLabel l2=new JLabel("종료일");
-		//l2.setForeground(Color.white);
 		l2.setFont(font);
 		p.add(l2).setBounds(20,167,40,20);
 		
@@ -237,37 +217,30 @@ public class GUI_date extends DateCalc {
 
 		
 		JLabel get1=new JLabel("동일한 날짜");
-		//get1.setForeground(Color.white);
 		get1.setFont(font2);
 		p.add(get1).setBounds(20,264,190,20);
 		
 		JLabel dif=new JLabel("차이");
-		//dif.setForeground(Color.white);
 		dif.setFont(font);
 		p.add(dif).setBounds(20,236,60,30);
 		
 		JLabel gylb=new JLabel();
-		//gylb.setForeground(Color.white);
 		gylb.setFont(font2);
 		p.add(gylb);
 		
 		JLabel gmlb=new JLabel();
-		//gmlb.setForeground(Color.white);
 		gmlb.setFont(font2);
 		 p.add(gmlb);
 	
 		JLabel gwlb=new JLabel();
-		//gwlb.setForeground(Color.white);
 		gwlb.setFont(font2);
 		 p.add(gwlb);
 		 
 		JLabel gdlb=new JLabel();
-		//gdlb.setForeground(Color.white);
 		gdlb.setFont(font2);
 		 p.add(gdlb);
 		 
 		JLabel gadlb=new JLabel();
-		//gadlb.setForeground(Color.white);
 		gadlb.setFont(font2);
 		 p.add(gadlb);
 		
@@ -371,7 +344,6 @@ public class GUI_date extends DateCalc {
 		
 		
 		JLabel p2start=new JLabel("시작일");
-		//p2start.setForeground(Color.white);
 		p2start.setFont(font);
 		p2start.setBounds(20,98,40,20);
 		p2.add(p2start);	
@@ -379,23 +351,17 @@ public class GUI_date extends DateCalc {
 		JComboBox<Integer> yearCombo2 = new JComboBox<Integer>();
 		DefaultComboBoxModel<Integer> yearModel2 = new DefaultComboBoxModel<Integer>(); 
 		JLabel yLbl2 = new JLabel("년 ");  
-		//yLbl2.setForeground(Color.white);
 		yLbl2.setFont(font);
-		//yearCombo2.setBackground(Color.lightGray);
 		
 		JComboBox<Integer> monthCombo2 = new JComboBox<Integer>();
 		DefaultComboBoxModel<Integer> monthModel2 = new DefaultComboBoxModel<Integer>();
 		JLabel mLbl2 = new JLabel("월"); 
-		//mLbl2.setForeground(Color.white);
 		mLbl2.setFont(font);
-		//monthCombo2.setBackground(Color.lightGray);
 		
 		JComboBox<Integer> dayCombo2 = new JComboBox<Integer>();
 		DefaultComboBoxModel<Integer> dayModel2 = new DefaultComboBoxModel<Integer>();
 		JLabel dLbl2 = new JLabel("일"); 
-		//dLbl2.setForeground(Color.white);
 		dLbl2.setFont(font);
-		//dayCombo2.setBackground(Color.lightGray);
 		
 		for(int i=(int) (year-150); i<=year+150; i++)
 			yearModel2.addElement(i);
@@ -421,17 +387,14 @@ public class GUI_date extends DateCalc {
 		
 		JComboBox<Integer> yearCombo3 = new JComboBox<Integer>();
 		DefaultComboBoxModel<Integer> yearModel3 = new DefaultComboBoxModel<Integer>(); 
-		//yearCombo3.setBackground(Color.lightGray);
 		yearCombo3.setFont(font);
 		
 		JComboBox<Integer> monthCombo3 = new JComboBox<Integer>();
 		DefaultComboBoxModel<Integer> monthModel3 = new DefaultComboBoxModel<Integer>();
-		//monthCombo3.setBackground(Color.lightGray);
 		monthCombo3.setFont(font);
 		
 		JComboBox<Integer> dayCombo3 = new JComboBox<Integer>();
 		DefaultComboBoxModel<Integer> dayModel3 = new DefaultComboBoxModel<Integer>();
-		//dayCombo3.setBackground(Color.lightGray);
 		dayCombo3.setFont(font);
 		
 		for(int ie=0;ie<1000;ie++) {
@@ -451,7 +414,7 @@ public class GUI_date extends DateCalc {
 		LocalDate nw=LocalDate.now();
 		GetDayOfWeek(nw);
 		JLabel get=new JLabel(nw.format(formatter)+getd);
-		get.setFont(font2);//get.setForeground(Color.white);
+		get.setFont(font2);
 		p2.add(get).setBounds(20,307,270,30);
 	
 		
@@ -463,12 +426,12 @@ public class GUI_date extends DateCalc {
 		radio[0]=new JRadioButton("추가");
 		p2.add(radio[0]).setBounds(20,182,60,20);
 		radio[0].setBackground(Color.lightGray);
-		radio[0].setFont(font); //radio[0].setForeground(Color.white);
+		radio[0].setFont(font);
 		
 		radio[1]=new JRadioButton("빼기");
 		p2.add(radio[1]).setBounds(80,182,60,20);
 		radio[1].setBackground(Color.lightGray);
-		radio[1].setFont(font); //radio[1].setForeground(Color.white);
+		radio[1].setFont(font); 
 		
 		radio[0].setSelected(true);
 		group.add(radio[0]);
@@ -501,7 +464,7 @@ public class GUI_date extends DateCalc {
 						int d= (int) e.getItem();
 						GetDayOfMonth(startDate);
 						
-						if(d>lengthOfMon) //2월이 28일일인데 31이 클릭돼있으면 오류가 나므로 31을 28로 바꾼다
+						if(d>lengthOfMon) 
 							d=lengthOfMon;
 						
 						startDate=startDate.withDayOfMonth(d);
@@ -554,22 +517,22 @@ public class GUI_date extends DateCalc {
 		
 		
 		JLabel yLbl3 = new JLabel("년 "); 
-		yLbl3.setFont(font); //yLbl3.setForeground(Color.white); 
+		yLbl3.setFont(font); 
 		p2.add(yLbl3).setBounds(20,217,20,20);
 		
 		
 		JLabel mLbl3 = new JLabel("월"); 
-		mLbl3.setFont(font); //mLbl3.setForeground(Color.white); 
+		mLbl3.setFont(font); 
 		p2.add(mLbl3).setBounds(80,217,20,20);
 		
 		
 		JLabel dLbl3 = new JLabel("일"); 
-		dLbl3.setFont(font); //dLbl3.setForeground(Color.white); 
+		dLbl3.setFont(font);
 		p2.add(dLbl3).setBounds(140,217,20,20);
 		
 		
 		JLabel nalza = new JLabel("날짜 "); 
-		nalza.setFont(font); //nalza.setForeground(Color.white); 
+		nalza.setFont(font); 
 		p2.add(nalza).setBounds(20,287,40,20);
 		
 	
@@ -622,8 +585,7 @@ public class GUI_date extends DateCalc {
 		
 		((JFrame) f).setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		
-	}
+		}
 	}
 
 
